@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
-var LISTEN_PORT = 8080;
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 
 app.get('/', function (req, res) {
@@ -9,11 +10,5 @@ app.get('/', function (req, res) {
 })
 
 
-var server = app.listen(LISTEN_PORT, function () {
-
-  var host = server.address().address
-  var port = server.address().port
-
-  console.log("Example app listening at http://%s:%s", host, port)
-
-})
+app.listen(port, ip);
+console.log('Server running on ' + ip + ':' + port);
