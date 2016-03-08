@@ -1,0 +1,27 @@
+{
+  "name": "myapp",
+  "version": "0.0.1",
+  "description": "Node.js sample app for OpenShift 3",
+  "main": "server.js",
+  "dependencies": {
+      "express": "*",
+      "ejs": "*"
+  },
+  "engine": {
+    "node": "*",
+    "npm": "*"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/peter-lowenbreu-griffin/locupdate.git"
+  },
+  "author": "peter peter ",
+  "license": "",
+  "bugs": {
+    "url": https://github.com/peter-lowenbreu-griffin/locupdate/issues"
+  },
+  "homepage": "https://github.com/peter-lowenbreu-griffin/locupdate/"
+}
