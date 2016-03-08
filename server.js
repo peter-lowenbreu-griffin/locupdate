@@ -6,7 +6,37 @@ var ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 app.get('/', function (req, res) {
 	var date = new Date();
-   res.end( date.toString() );
+	
+	
+    req.on('data', function(chunk) {
+      console.log("Received body data:");
+      console.log(chunk.toString());
+    });
+    
+    req.on('end', function() {
+      // empty 200 OK response for now
+      res.writeHead(200, "OK", {'Content-Type': 'text/html'});
+      res.end(date.toString());
+    });
+
+})
+
+app.post('/', function (req, res) {
+	var date = new Date();
+	console.log("X " + req.connection.remoteAddress);
+    req.on('data', function(chunk) {
+      console.log("Received body data:");
+      console.log(chunk.toString());
+	  var payload = JSON.parse(chunk.toString());
+	  
+    });
+    
+    req.on('end', function() {
+      // empty 200 OK response for now
+      res.writeHead(200, "OK", {'Content-Type': 'text/html'});
+      res.end( JSON.stringify(req.headers) + " / " +  req.connection.remoteAddress + " / " +date.toString());
+    });
+
 })
 
 
