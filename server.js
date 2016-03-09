@@ -40,10 +40,16 @@ app.post('/', function (req, res) {
     req.on('end', function() {
       // empty 200 OK response for now
       res.writeHead(200, "OK", {'Content-Type': 'text/html'});
-      res.end( JSON.stringify(req.headers) + " / <" +  host + "> / " +date.toString());
+      res.end( JSON.stringify(req.headers) + " / <" +  getIpFromRequest(req) + "> / " +date.toString());
     });
 
 })
+
+function getIpFromRequest(req) {
+	var headers = req.headers;//JSON.parse(req.headers);
+	var host = headers["x-forwarded-for"] || headers["x-client-ip"] || req.connection.remoteAddress;
+	return host;
+}
 
 
 app.listen(port, ip);
