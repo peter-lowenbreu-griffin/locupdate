@@ -23,18 +23,24 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
 	var date = new Date();
+	var host;
 	console.log("X " + req.connection.remoteAddress);
     req.on('data', function(chunk) {
       console.log("Received body data:");
       console.log(chunk.toString());
 	  var payload = JSON.parse(chunk.toString());
 	  
+	  var headers = req.headers;//JSON.parse(req.headers);
+	  
+	  host = headers["x-forwarded-for"] || headers["x-client-ip"] || req.connection.remoteAddress;
+	  console.log(host);
+	  
     });
     
     req.on('end', function() {
       // empty 200 OK response for now
       res.writeHead(200, "OK", {'Content-Type': 'text/html'});
-      res.end( JSON.stringify(req.headers) + " / " +  req.connection.remoteAddress + " / " +date.toString());
+      res.end( JSON.stringify(req.headers) + " / <" +  host + "> / " +date.toString());
     });
 
 })
